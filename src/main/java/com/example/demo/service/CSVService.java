@@ -8,7 +8,6 @@ import java.io.IOException;
 import java.io.PrintWriter;
 import java.util.ArrayList;
 import java.util.HashMap;
-import java.util.Iterator;
 import java.util.List;
 import java.util.Map;
 
@@ -155,7 +154,7 @@ public class CSVService {
 		    			  msg.setStatus(false);
 		    		  }
 					} catch (Exception e) {
-						 msg.setMsg("Coluna 1 não encontrada!");
+						 msg.setMsg("Linha: " + cont + " Coluna 1 não encontrada!");
 		    			 msg.setStatus(false);
 					}
 	    		  
@@ -165,7 +164,7 @@ public class CSVService {
 		    			  msg.setStatus(false);				  
 		    		  }
 					} catch (Exception e) {
-						 msg.setMsg("Coluna 2 não encontrada!");
+						 msg.setMsg("Linha: " + cont + " Coluna 2 não encontrada!");
 		    			 msg.setStatus(false);
 					}
 	    		  
@@ -175,7 +174,7 @@ public class CSVService {
 		    			  msg.setStatus(false); 
 		    		  }
 					} catch (Exception e) {
-						 msg.setMsg("Coluna 3 não encontrada!");
+						 msg.setMsg("Linha: " + cont +  " Coluna 3 não encontrada!");
 		    			 msg.setStatus(false);
 					}
 	    		  
@@ -185,7 +184,7 @@ public class CSVService {
 		    			  msg.setStatus(false);
 		    		  }				
 					} catch (Exception e) {
-						 msg.setMsg("Coluna 4 não encontrada!");
+						 msg.setMsg("Linha: " + cont +  " Coluna 4 não encontrada!");
 		    			 msg.setStatus(false);
 					}
 	    		  
@@ -195,7 +194,7 @@ public class CSVService {
 		    			  msg.setStatus(false); 
 		    		  }					
 					} catch (Exception e) {
-						 msg.setMsg("Coluna 5 não encontrada!");
+						 msg.setMsg("Linha: " + cont + " Coluna 5 não encontrada!");
 		    			 msg.setStatus(false);
 					}
 	    		  
@@ -205,7 +204,7 @@ public class CSVService {
 	    				  msg.setStatus(false); 
 	    			  }						
 					} catch (Exception e) {
-						 msg.setMsg("Coluna 5 não encontrada!");
+						 msg.setMsg("Linha: " + cont +  " Coluna 5 não encontrada!");
 		    			 msg.setStatus(false);
 					}
 	    		  
