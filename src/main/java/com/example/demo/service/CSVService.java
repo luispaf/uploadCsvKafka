@@ -8,6 +8,7 @@ import java.io.IOException;
 import java.io.PrintWriter;
 import java.util.ArrayList;
 import java.util.HashMap;
+import java.util.Iterator;
 import java.util.List;
 import java.util.Map;
 
@@ -15,8 +16,10 @@ import org.apache.commons.csv.CSVFormat;
 import org.apache.commons.csv.CSVPrinter;
 import org.apache.commons.csv.QuoteMode;
 import org.springframework.stereotype.Service;
+import org.springframework.web.multipart.MultipartFile;
 
 import com.example.demo.DTO.CargaPadraoDTO;
+import com.example.demo.DTO.MsgDTO;
 import com.example.demo.generic.ProducerKafka;
 import com.opencsv.CSVReader;
 
@@ -113,5 +116,105 @@ public class CSVService {
 			});
 			
 			return lista;
+	  }
+	  
+	  public MsgDTO lerAquivoCSV(MultipartFile file) throws Exception {
+		  try {
+			  byte[] bytes = file.getBytes(); String completeData = new String(bytes);
+			  String[] rows = completeData.split("\n");
+			  
+			  MsgDTO validaCampos = validarCampos(rows);
+			  
+			  if (validaCampos.getStatus()) {				  
+				  for (String lin : rows) { 
+					 // Envia a mensagem 
+					 producerKafka.gerarProducer(lin);
+				  }	
+			  }
+			return validaCampos;
+		} catch (Exception e) {
+			throw new Exception(e.getMessage());
+		}
+	  }
+	  
+	  public MsgDTO validarCampos(String[] rows) throws Exception {
+		 
+		  MsgDTO msg = new MsgDTO();
+		  msg.setMsg("Arquivo validado e enviado com sucesso!");
+	      msg.setStatus(true);
+		 
+	      Long cont = 1L;
+		 
+	      for (String lin : rows) { 
+	    	  if (cont > 1) {
+	    		  String[] cols =  lin.split(",");   		  
+	    		  
+	    		  try {
+	    			  if (cols[0] == null || cols[0].isEmpty()) {
+		    			  msg.setMsg("Linha: " + cont + " coluna: 1 invalida!" );
+		    			  msg.setStatus(false);
+		    		  }
+					} catch (Exception e) {
+						 msg.setMsg("Coluna 1 não encontrada!");
+		    			 msg.setStatus(false);
+					}
+	    		  
+	    		  try {
+	    			  if (cols[1] == null || cols[1].isEmpty()) {
+		    			  msg.setMsg("Linha: " + cont + " coluna: 2 invalida!" );
+		    			  msg.setStatus(false);				  
+		    		  }
+					} catch (Exception e) {
+						 msg.setMsg("Coluna 2 não encontrada!");
+		    			 msg.setStatus(false);
+					}
+	    		  
+	    		  try {
+	    			  if (cols[2] == null || cols[2].isEmpty()) {
+		    			  msg.setMsg("Linha: " + cont + " coluna: 3 invalida!" );
+		    			  msg.setStatus(false); 
+		    		  }
+					} catch (Exception e) {
+						 msg.setMsg("Coluna 3 não encontrada!");
+		    			 msg.setStatus(false);
+					}
+	    		  
+	    		  try {
+	    			  if (cols[3] == null || cols[3].isEmpty()) {
+		    			  msg.setMsg("Linha: " + cont + " coluna: 4 invalida!" );
+		    			  msg.setStatus(false);
+		    		  }				
+					} catch (Exception e) {
+						 msg.setMsg("Coluna 4 não encontrada!");
+		    			 msg.setStatus(false);
+					}
+	    		  
+	    		  try {
+	    			  if ((cols[4] == null || cols[4].isEmpty())) {
+		    			  msg.setMsg("Linha: " + cont + " coluna: 5 invalida!");
+		    			  msg.setStatus(false); 
+		    		  }					
+					} catch (Exception e) {
+						 msg.setMsg("Coluna 5 não encontrada!");
+		    			 msg.setStatus(false);
+					}
+	    		  
+	    		  try {
+	    			  if (!"0".equals(cols[4]) && !"1".equals(cols[4])) {	    				  
+	    				  msg.setMsg("Linha: " + cont + " Coluna FL_ATIV aceita apenas valores 0 ou 1" );
+	    				  msg.setStatus(false); 
+	    			  }						
+					} catch (Exception e) {
+						 msg.setMsg("Coluna 5 não encontrada!");
+		    			 msg.setStatus(false);
+					}
+	    		  
+	    		  if (!msg.getStatus()) {
+	    			  return msg;
+	    		  }
+	    	  }
+	    	  cont ++;	    		  
+		  }	
+	      return msg;
 	  }
 }
