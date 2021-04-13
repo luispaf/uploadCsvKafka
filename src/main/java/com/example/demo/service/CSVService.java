@@ -14,7 +14,6 @@ import java.util.Map;
 import org.apache.commons.csv.CSVFormat;
 import org.apache.commons.csv.CSVPrinter;
 import org.apache.commons.csv.QuoteMode;
-import org.springframework.scheduling.annotation.Async;
 import org.springframework.stereotype.Service;
 import org.springframework.web.multipart.MultipartFile;
 
@@ -220,13 +219,13 @@ public class CSVService {
 	      return msg;
 	  }
 	  
-	  @Async
-	  public void consumir() {
-		  consumerKafka.consumir();
+	  public List<CargaPadraoDTO>  consumir() {
+		  return consumerKafka.consumir();
 	  }
 	  
 	  public ByteArrayInputStream listar() throws Exception {
-		  List<CargaPadraoDTO>  lista =  consumerKafka.listar();
+		  List<CargaPadraoDTO>  lista =  consumerKafka.consumir(); 
 		  return montarRetornoCSV(lista);
-	  }
+	  }	  
 }
+

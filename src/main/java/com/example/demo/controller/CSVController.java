@@ -1,5 +1,7 @@
 package com.example.demo.controller;
 
+import java.util.List;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.core.io.InputStreamResource;
 import org.springframework.http.HttpHeaders;
@@ -14,10 +16,10 @@ import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 import org.springframework.web.multipart.MultipartFile;
 
+import com.example.demo.DTO.CargaPadraoDTO;
 import com.example.demo.DTO.MsgDTO;
 import com.example.demo.service.CSVService;
 
-@EnableAsync
 @RestController
 @RequestMapping(value = "/csv")
 public class CSVController {
@@ -53,18 +55,21 @@ public class CSVController {
 	  @PostMapping("/send")
 	  public ResponseEntity<?>  fileUpload(@RequestParam("arquivo") MultipartFile file) throws Exception{				
 		  MsgDTO msgRet = fileService.lerAquivoCSV(file);
-		  fileService.consumir();
 		  return new ResponseEntity<MsgDTO>(msgRet, HttpStatus.OK);
 	  }
 	  
 	  @GetMapping("/consumir")
 	  public ResponseEntity<?> consumir() throws Exception{
-		  String filename = "carga.csv"; 
-		  InputStreamResource file = new InputStreamResource(fileService.listar());
+		  List<CargaPadraoDTO>  lista = fileService.consumir();
+		  //String filename = "carga.csv"; 
+		  //InputStreamResource file = new InputStreamResource(fileService.listar());
 				  
-		  return ResponseEntity.ok() .header(HttpHeaders.CONTENT_DISPOSITION,
-		  "attachment; filename=" + filename)
-		  .contentType(MediaType.parseMediaType("application/csv")) .body(file);
+			/*
+			 * return ResponseEntity.ok() .header(HttpHeaders.CONTENT_DISPOSITION,
+			 * "attachment; filename=" + filename)
+			 * .contentType(MediaType.parseMediaType("application/csv")) .body(file);
+			 */
+		  return new ResponseEntity<String>("", HttpStatus.OK);
 			 
 	  }
 }
