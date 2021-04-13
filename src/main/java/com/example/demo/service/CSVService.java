@@ -14,11 +14,13 @@ import java.util.Map;
 import org.apache.commons.csv.CSVFormat;
 import org.apache.commons.csv.CSVPrinter;
 import org.apache.commons.csv.QuoteMode;
+import org.springframework.scheduling.annotation.Async;
 import org.springframework.stereotype.Service;
 import org.springframework.web.multipart.MultipartFile;
 
 import com.example.demo.DTO.CargaPadraoDTO;
 import com.example.demo.DTO.MsgDTO;
+import com.example.demo.generic.ConsumerKafka;
 import com.example.demo.generic.ProducerKafka;
 import com.opencsv.CSVReader;
 
@@ -27,6 +29,7 @@ import com.opencsv.CSVReader;
 public class CSVService {
 	
 	  ProducerKafka producerKafka = new ProducerKafka();
+	  ConsumerKafka consumerKafka = new ConsumerKafka();
 	  private static final String CSV_PATH = "/home/usertqi/Desktop/Projeto_kafka/carga.csv";
 		  
 	  public ByteArrayInputStream carregar() throws Exception {		  
@@ -215,5 +218,14 @@ public class CSVService {
 	    	  cont ++;	    		  
 		  }	
 	      return msg;
+	  }
+	  
+	  @Async
+	  public void consumir() {
+		  consumerKafka.consumir();
+	  }
+	  
+	  public List<String> listar() {
+		  return consumerKafka.listar();
 	  }
 }
