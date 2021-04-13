@@ -1,7 +1,5 @@
 package com.example.demo.controller;
 
-import java.util.List;
-
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.core.io.InputStreamResource;
 import org.springframework.http.HttpHeaders;
@@ -61,8 +59,12 @@ public class CSVController {
 	  
 	  @GetMapping("/consumir")
 	  public ResponseEntity<?> consumir() throws Exception{
-		  List<String> lista = fileService.listar();
-		  return new ResponseEntity<List<String>>(lista, HttpStatus.OK);
+		  String filename = "carga.csv"; 
+		  InputStreamResource file = new InputStreamResource(fileService.listar());
+				  
+		  return ResponseEntity.ok() .header(HttpHeaders.CONTENT_DISPOSITION,
+		  "attachment; filename=" + filename)
+		  .contentType(MediaType.parseMediaType("application/csv")) .body(file);
 			 
 	  }
 }

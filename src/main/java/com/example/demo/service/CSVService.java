@@ -225,7 +225,8 @@ public class CSVService {
 		  consumerKafka.consumir();
 	  }
 	  
-	  public List<String> listar() {
-		  return consumerKafka.listar();
+	  public ByteArrayInputStream listar() throws Exception {
+		  List<CargaPadraoDTO>  lista =  consumerKafka.listar();
+		  return montarRetornoCSV(lista);
 	  }
 }
