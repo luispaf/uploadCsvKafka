@@ -12,6 +12,7 @@ import com.example.demo.service.CargaSevice;
 /**
  * @author usertqi
  * Essa classe roda automatica ao iniciar o sistema igual uma engine
+ * ela pega as configurações da pasta config
  */
 @Service
 public class KafkaConsumer {
