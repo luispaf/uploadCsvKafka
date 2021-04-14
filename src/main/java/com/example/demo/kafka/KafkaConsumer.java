@@ -1,4 +1,6 @@
-package com.example.demo.listener;
+package com.example.demo.kafka;
+
+import java.text.Normalizer;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.kafka.annotation.KafkaListener;
@@ -7,6 +9,10 @@ import org.springframework.stereotype.Service;
 import com.example.demo.entities.Carga;
 import com.example.demo.service.CargaSevice;
 
+/**
+ * @author usertqi
+ * Essa classe roda automatica ao iniciar o sistema igual uma engine
+ */
 @Service
 public class KafkaConsumer {
 	@Autowired
@@ -23,12 +29,16 @@ public class KafkaConsumer {
 		// se for cabeçalho ignora
 		if (("0".equals(status)) || ("1".equals(status))) {
 			Carga cg = new Carga();
-			cg.setNomeUnidadeNegocio(culunas[0]);
-			cg.setNomeCarteira(culunas[1]);
-			cg.setNomeSeguimento(culunas[2]);
-			cg.setNomeLink(culunas[3]);
+			cg.setNomeUnidadeNegocio(removerAcentos(culunas[0]));
+			cg.setNomeCarteira(removerAcentos(culunas[1]));
+			cg.setNomeSeguimento(removerAcentos(culunas[2]));
+			cg.setNomeLink(removerAcentos(culunas[3]));
 			cg.setAtivo(culunas[4].equals("1") ? true : false);
 			cargaSevice.salvar(cg);			
 		}
+	}
+	
+	public String removerAcentos(String valorAcentuado){
+		   return Normalizer.normalize(valorAcentuado, Normalizer.Form.NFD).replaceAll("[^\\p{ASCII}]", "");
 	}
 }
