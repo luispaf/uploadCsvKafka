@@ -1,4 +1,4 @@
-package com.example.demo.generic;
+package com.example.demo.kafka;
 
 import java.io.Closeable;
 import java.util.Properties;

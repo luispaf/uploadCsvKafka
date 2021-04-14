@@ -1,4 +1,4 @@
-package com.example.demo.service;
+package com.example.demo.service.serviceImpl;
 
 import java.io.ByteArrayInputStream;
 import java.io.ByteArrayOutputStream;
@@ -19,16 +19,15 @@ import org.springframework.web.multipart.MultipartFile;
 
 import com.example.demo.DTO.CargaPadraoDTO;
 import com.example.demo.DTO.MsgDTO;
-import com.example.demo.generic.ConsumerKafka;
-import com.example.demo.generic.ProducerKafka;
+import com.example.demo.entities.Carga;
+import com.example.demo.kafka.ProducerKafka;
 import com.opencsv.CSVReader;
 
 
 @Service
-public class CSVService {
-	
+public class CSVService {	 
+	  public static final String ATIVO = "1";
 	  ProducerKafka producerKafka = new ProducerKafka();
-	  ConsumerKafka consumerKafka = new ConsumerKafka();
 	  private static final String CSV_PATH = "/home/usertqi/Desktop/Projeto_kafka/carga.csv";
 		  
 	  public ByteArrayInputStream carregar() throws Exception {		  
@@ -60,6 +59,28 @@ public class CSVService {
 		      throw new RuntimeException("Falha ao importar CSV: " + e.getMessage());
 		    }
       }
+	  
+	  public static ByteArrayInputStream consumirRegistroTabelaTmp(List<Carga> lista) {			
+		    final CSVFormat format = CSVFormat.DEFAULT.withQuoteMode(QuoteMode.MINIMAL);
+
+		    try (ByteArrayOutputStream out = new ByteArrayOutputStream();
+		    CSVPrinter csvPrinter = new CSVPrinter(new PrintWriter(out), format);) {
+		      for (Carga ite : lista) {
+		        List<String> data = new ArrayList<String>();
+		        data.add(ite.getNomeUnidadeNegocio());
+		        data.add(ite.getNomeCarteira());
+		        data.add(ite.getNomeSeguimento());
+		        data.add(ite.getNomeLink());
+		        data.add(ite.getAtivo() ? "1" : "0");
+		        csvPrinter.printRecord(data);
+		      }
+
+		      csvPrinter.flush();
+		      return new ByteArrayInputStream(out.toByteArray());
+		    } catch (IOException e) {
+		      throw new RuntimeException("Falha ao ler tabela TMP: " + e.getMessage());
+		    }
+    }
 	 
 	  public List<CargaPadraoDTO> lerCsv() throws Exception{
 
@@ -121,7 +142,8 @@ public class CSVService {
 	  
 	  public MsgDTO lerAquivoCSV(MultipartFile file) throws Exception {
 		  try {
-			  byte[] bytes = file.getBytes(); String completeData = new String(bytes);
+			  byte[] bytes = file.getBytes(); 
+			  String completeData = new String(bytes);
 			  String[] rows = completeData.split("\n");
 			  
 			  MsgDTO validaCampos = validarCampos(rows);
@@ -148,7 +170,7 @@ public class CSVService {
 		 
 	      for (String lin : rows) { 
 	    	  if (cont > 1) {
-	    		  String[] cols =  lin.split(",");   		  
+	    		  String[] cols =  lin.split(";");   		  
 	    		  
 	    		  try {
 	    			  if (cols[0] == null || cols[0].isEmpty()) {
@@ -217,15 +239,6 @@ public class CSVService {
 	    	  cont ++;	    		  
 		  }	
 	      return msg;
-	  }
-	  
-	  public List<CargaPadraoDTO>  consumir() {
-		  return consumerKafka.consumir();
-	  }
-	  
-	  public ByteArrayInputStream listar() throws Exception {
-		  List<CargaPadraoDTO>  lista =  consumerKafka.consumir(); 
-		  return montarRetornoCSV(lista);
 	  }	  
 }
 

@@ -1,0 +1,21 @@
+#
+# A fatal error has been detected by the Java Runtime Environment:
+#
+#  SIGSEGV (0xb) at pc=0x00007f35c5eb5855, pid=31910, tid=31957
+#
+# JRE version: OpenJDK Runtime Environment (15.0.2+7) (build 15.0.2+7-27)
+# Java VM: OpenJDK 64-Bit Server VM (15.0.2+7-27, mixed mode, tiered, compressed oops, g1 gc, linux-amd64)
+# Problematic frame:
+# J 1071 c1 java.nio.DirectIntBufferU.get(I)I java.base@15.0.2 (33 bytes) @ 0x00007f35c5eb5855 [0x00007f35c5eb57c0+0x0000000000000095]
+#
+# Core dump will be written. Default location: Core dumps may be processed with "/usr/share/apport/apport %p %s %c %d %P %E" (or dumping to /home/usertqi/Documents/workspace-spring-tool-suite-4-4.10.0.RELEASE/projetoKafka/core.31910)
+#
+# If you would like to submit a bug report, please visit:
+#   https://bugreport.java.com/bugreport/crash.jsp
+#
+
+---------------  S U M M A R Y ------------
+
+Command Line: -XX:+ShowCodeDetailsInExceptionMessages -agentlib:jdwp=transport=dt_socket,suspend=y,address=localhost:36725 -Dcom.sun.management.jmxremote -Dcom.sun.management.jmxremote.port=39543 -Dcom.sun.management.jmxremote.authenticate=false -Dcom.sun.management.jmxremote.ssl=false -Djava.rmi.server.hostname=localhost -Dspring.jmx.enabled=true -Dspring.application.admin.enabled=true -Djava.security.egd=file:/dev/./urandom -XX:TieredStopAtLevel=1 -Dspring.boot.project.name=projetoKafka -javaagent:/home/usertqi/Desktop/Ferramentas/spring-tool-suite-4-4.10.0.RELEASE-e4.19.0-linux.gtk.x86_64/sts-4.10.0.RELEASE/configuration/org.eclipse.osgi/248/0/.cp/lib/javaagent-shaded.jar -Dfile.encoding=UTF-8 com.example.demo.ProjetoKafkaApplication --spring.output.ansi.enabled=always
+
+Host: 

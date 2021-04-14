@@ -1,4 +1,4 @@
-package com.example.demo.generic;
+package com.example.demo.kafka;
 
 import java.util.UUID;
 import java.util.concurrent.ExecutionException;
