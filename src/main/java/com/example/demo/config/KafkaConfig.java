@@ -23,7 +23,7 @@ import com.example.demo.customerPortfolio.domain.CustomerPortfolio;
 public class KafkaConfig {
 	@Value(value = "${kafka.bootstrapAddress}")
 	private String bootstrapAddress;
-	@Value(value = "${kafka.bootstrapAddress}")
+	@Value(value = "${kafka.groupId}")
 	private String groupId;
 
 	@Bean
