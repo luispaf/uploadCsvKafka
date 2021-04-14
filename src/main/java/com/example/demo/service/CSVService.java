@@ -146,7 +146,7 @@ public class CSVService {
 		 
 	      for (String lin : rows) { 
 	    	  if (cont > 1) {
-	    		  String[] cols =  lin.split(",");   		  
+	    		  String[] cols =  lin.split(";");   		  
 	    		  
 	    		  try {
 	    			  if (cols[0] == null || cols[0].isEmpty()) {
@@ -199,7 +199,7 @@ public class CSVService {
 					}
 	    		  
 	    		  try {
-	    			  if (!"0".equals(cols[4]) && !"1".equals(cols[4])) {	    				  
+	    			  if (!"0".equals(cols[4].subSequence(0, 1)) && !"1".equals(cols[4].subSequence(0, 1))) {    				  
 	    				  msg.setMsg("Linha: " + cont + " Coluna FL_ATIV aceita apenas valores 0 ou 1" );
 	    				  msg.setStatus(false); 
 	    			  }						
