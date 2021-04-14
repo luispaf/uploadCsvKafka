@@ -1,4 +1,4 @@
-package com.example.demo.controller;
+package br.com.uol.pagseguro.controller;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.core.io.InputStreamResource;
@@ -13,8 +13,8 @@ import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 import org.springframework.web.multipart.MultipartFile;
 
-import com.example.demo.DTO.MsgDTO;
-import com.example.demo.service.CSVService;
+import br.com.uol.pagseguro.DTO.MsgDTO;
+import br.com.uol.pagseguro.service.CSVService;
 
 @RestController
 @RequestMapping(value = "/csv")

@@ -1,4 +1,4 @@
-package com.example.demo.generic;
+package br.com.uol.pagseguro.generic;
 
 import java.util.Properties;
 import java.util.concurrent.ExecutionException;

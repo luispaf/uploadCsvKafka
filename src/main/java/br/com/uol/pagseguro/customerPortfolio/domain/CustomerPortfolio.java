@@ -1,4 +1,4 @@
-package com.example.demo.customerPortfolio.domain;
+package br.com.uol.pagseguro.customerPortfolio.domain;
 
 import java.util.UUID;
 

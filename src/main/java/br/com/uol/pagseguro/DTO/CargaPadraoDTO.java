@@ -1,4 +1,4 @@
-package com.example.demo.DTO;
+package br.com.uol.pagseguro.DTO;
 
 public class CargaPadraoDTO {
 

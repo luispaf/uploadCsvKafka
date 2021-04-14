@@ -1,4 +1,4 @@
-package com.example.demo.customerPortfolio.application.api;
+package br.com.uol.pagseguro.customerPortfolio.application.api;
 
 import java.util.UUID;
 
@@ -6,8 +6,7 @@ import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
 
-import com.example.demo.customerPortfolio.domain.CustomerPortfolio;
-
+import br.com.uol.pagseguro.customerPortfolio.domain.CustomerPortfolio;
 import lombok.AccessLevel;
 import lombok.AllArgsConstructor;
 import lombok.Builder;

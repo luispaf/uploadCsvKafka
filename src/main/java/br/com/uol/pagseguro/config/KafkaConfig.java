@@ -1,4 +1,4 @@
-package com.example.demo.config;
+package br.com.uol.pagseguro.config;
 
 import java.util.HashMap;
 import java.util.Map;
@@ -16,7 +16,7 @@ import org.springframework.kafka.core.DefaultKafkaConsumerFactory;
 import org.springframework.kafka.core.KafkaAdmin;
 import org.springframework.kafka.support.serializer.JsonDeserializer;
 
-import com.example.demo.customerPortfolio.domain.CustomerPortfolio;
+import br.com.uol.pagseguro.customerPortfolio.domain.CustomerPortfolio;
 
 @EnableKafka
 @Configuration
@@ -43,7 +43,6 @@ public class KafkaConfig {
 	public ConsumerFactory<String, CustomerPortfolio> customerPortfolioConsumerFactory() {
 		Map<String, Object> props = buildProps();
 		return new DefaultKafkaConsumerFactory<>(props, new StringDeserializer(),
-//          new JsonDeserializer<>(CustomerPortfolio.class));
 				new JsonDeserializer<>(CustomerPortfolio.class));
 	}
 

@@ -1,9 +1,8 @@
-package com.example.demo.customerPortfolio.application.api;
+package br.com.uol.pagseguro.customerPortfolio.application.api;
 
 import javax.validation.constraints.Pattern;
 
-import com.example.demo.customerPortfolio.domain.CustomerPortfolio;
-
+import br.com.uol.pagseguro.customerPortfolio.domain.CustomerPortfolio;
 import lombok.Value;
 
 @Value

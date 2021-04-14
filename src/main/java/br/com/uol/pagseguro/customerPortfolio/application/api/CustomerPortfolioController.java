@@ -1,12 +1,11 @@
-package com.example.demo.customerPortfolio.application.api;
+package br.com.uol.pagseguro.customerPortfolio.application.api;
 
 import javax.validation.Valid;
 
 import org.springframework.web.bind.annotation.RestController;
 
-import com.example.demo.customerPortfolio.application.service.CustomerPortfolioService;
-import com.example.demo.customerPortfolio.domain.CustomerPortfolio;
-
+import br.com.uol.pagseguro.customerPortfolio.application.service.CustomerPortfolioService;
+import br.com.uol.pagseguro.customerPortfolio.domain.CustomerPortfolio;
 import lombok.AllArgsConstructor;
 import lombok.extern.log4j.Log4j2;
 @RestController

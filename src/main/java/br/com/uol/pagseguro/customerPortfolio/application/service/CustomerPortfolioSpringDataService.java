@@ -1,10 +1,9 @@
-package com.example.demo.customerPortfolio.application.service;
+package br.com.uol.pagseguro.customerPortfolio.application.service;
 
 import org.springframework.stereotype.Service;
 
-import com.example.demo.customerPortfolio.domain.CustomerPortfolio;
-import com.example.demo.customerPortfolio.infrastructure.CustomerPortfolioSpringDataJPARepository;
-
+import br.com.uol.pagseguro.customerPortfolio.domain.CustomerPortfolio;
+import br.com.uol.pagseguro.customerPortfolio.infrastructure.CustomerPortfolioSpringDataJPARepository;
 import lombok.AllArgsConstructor;
 import lombok.extern.log4j.Log4j2;
 

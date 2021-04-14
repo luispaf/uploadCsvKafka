@@ -1,10 +1,10 @@
-package com.example.demo.customerPortfolio.infrastructure;
+package br.com.uol.pagseguro.customerPortfolio.infrastructure;
 
 import java.util.UUID;
 
 import org.springframework.data.jpa.repository.JpaRepository;
 
-import com.example.demo.customerPortfolio.domain.CustomerPortfolio;
+import br.com.uol.pagseguro.customerPortfolio.domain.CustomerPortfolio;
 
 public interface CustomerPortfolioSpringDataJPARepository extends JpaRepository<CustomerPortfolio, UUID> {
 }

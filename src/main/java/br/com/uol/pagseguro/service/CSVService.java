@@ -1,4 +1,4 @@
-package com.example.demo.service;
+package br.com.uol.pagseguro.service;
 
 import java.io.ByteArrayInputStream;
 import java.io.ByteArrayOutputStream;
@@ -17,10 +17,11 @@ import org.apache.commons.csv.QuoteMode;
 import org.springframework.stereotype.Service;
 import org.springframework.web.multipart.MultipartFile;
 
-import com.example.demo.DTO.CargaPadraoDTO;
-import com.example.demo.DTO.MsgDTO;
-import com.example.demo.generic.ProducerKafka;
 import com.opencsv.CSVReader;
+
+import br.com.uol.pagseguro.DTO.CargaPadraoDTO;
+import br.com.uol.pagseguro.DTO.MsgDTO;
+import br.com.uol.pagseguro.generic.ProducerKafka;
 
 
 @Service

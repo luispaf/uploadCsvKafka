@@ -1,4 +1,4 @@
-package com.example.demo.customerPortfolio.application.api;
+package br.com.uol.pagseguro.customerPortfolio.application.api;
 
 import javax.validation.Valid;
 
