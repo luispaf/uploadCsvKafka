@@ -6,7 +6,7 @@ import org.springframework.stereotype.Service;
 import org.springframework.web.multipart.MultipartFile;
 
 import br.com.uol.pagseguro.customerPortfolio.domain.CustomerPortfolio;
-import br.com.uol.pagseguro.customerPortfolio.infrastructure.CustomerPortfolioSpringDataJPARepository;
+import br.com.uol.pagseguro.customerPortfolio.infrastructure.springData.CustomerPortfolioSpringDataJPARepository;
 import lombok.AllArgsConstructor;
 import lombok.extern.log4j.Log4j2;
 

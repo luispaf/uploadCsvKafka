@@ -1,4 +1,4 @@
-package br.com.uol.pagseguro.customerPortfolio.infrastructure;
+package br.com.uol.pagseguro.customerPortfolio.infrastructure.openCSV;
 
 import com.opencsv.bean.CsvBindByPosition;
 
