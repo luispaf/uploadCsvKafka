@@ -1,19 +1,21 @@
-package br.com.uol.pagseguro.customerPortfolio.application.api;
+package br.com.uol.pagseguro.customerPortfolio.infrastructure;
 
-import javax.validation.constraints.Pattern;
+import com.opencsv.bean.CsvBindByPosition;
 
 import br.com.uol.pagseguro.customerPortfolio.domain.CustomerPortfolio;
-import lombok.Value;
 
-@Value
-public class CustomerPortfolioForm {
+public class CustomerPortfolioLineCSV {
+    @CsvBindByPosition(position = 0)
 	private String businessUnit;
+    @CsvBindByPosition(position = 1)
 	private String name;
+    @CsvBindByPosition(position = 2)
 	private String segment;
+    @CsvBindByPosition(position = 3)
 	private String link;
-	@Pattern(regexp = "0|1")
+    @CsvBindByPosition(position = 4)
 	private String status;
-	
+
 	public CustomerPortfolio buildCustomerPortFolio() {
 		return CustomerPortfolio.builder()
 				.businessUnit(this.businessUnit)

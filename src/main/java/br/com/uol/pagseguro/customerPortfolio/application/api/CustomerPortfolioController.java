@@ -1,11 +1,9 @@
 package br.com.uol.pagseguro.customerPortfolio.application.api;
 
-import javax.validation.Valid;
-
 import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.multipart.MultipartFile;
 
 import br.com.uol.pagseguro.customerPortfolio.application.service.CustomerPortfolioService;
-import br.com.uol.pagseguro.customerPortfolio.domain.CustomerPortfolio;
 import lombok.AllArgsConstructor;
 import lombok.extern.log4j.Log4j2;
 @RestController
@@ -15,11 +13,9 @@ public class CustomerPortfolioController implements CustomerPortfolioAPI {
 	private CustomerPortfolioService customerPortfolioService;
 
 	@Override
-	public CustomerPortfolioDTO postAddCustomerPortfolio(@Valid CustomerPortfolioForm customerPortfolioForm) {
-		log.info("[start] CustomerPortfolioController - postAddCustomerPortfolio");
-		log.info("customerPortfolioForm {}",customerPortfolioForm);
-		CustomerPortfolio customerPortfolio = customerPortfolioService.createCustomerPortfolio(customerPortfolioForm.buildCustomerPortFolio());
-		log.info("[finish] CustomerPortfolioController - postAddCustomerPortfolio");
-		return new CustomerPortfolioDTO(customerPortfolio);
+	public void postCustomersPortfolioByFile(MultipartFile file) {
+		log.info("[start] CustomerPortfolioController - postCustomersPortfolioByFile");
+		customerPortfolioService.saveCustomersPortfolioByFile(file);
+		log.info("[start] CustomerPortfolioController - postCustomersPortfolioByFile");
 	}
 }
