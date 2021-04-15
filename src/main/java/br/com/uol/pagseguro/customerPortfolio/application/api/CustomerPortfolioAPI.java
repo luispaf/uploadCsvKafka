@@ -11,7 +11,7 @@ import org.springframework.web.bind.annotation.RestController;
 import org.springframework.web.multipart.MultipartFile;
 
 @RestController
-@RequestMapping("/v1/customerPortfolio")
+@RequestMapping("/v1/customers-portfolio")
 public interface CustomerPortfolioAPI {
 	@PostMapping
 	@ResponseStatus(value = HttpStatus.NO_CONTENT)

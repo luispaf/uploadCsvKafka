@@ -19,7 +19,6 @@ import org.springframework.kafka.core.DefaultKafkaProducerFactory;
 import org.springframework.kafka.core.KafkaAdmin;
 import org.springframework.kafka.core.KafkaTemplate;
 import org.springframework.kafka.core.ProducerFactory;
-import org.springframework.kafka.support.serializer.JsonDeserializer;
 import org.springframework.kafka.support.serializer.JsonSerializer;
 
 import br.com.uol.pagseguro.customerPortfolio.domain.CustomerPortfolio;
@@ -38,43 +37,24 @@ public class KafkaConfig {
 		configs.put(AdminClientConfig.BOOTSTRAP_SERVERS_CONFIG, bootstrapAddress);
 		return new KafkaAdmin(configs);
 	}
-	
+
 	@Bean
-	public ConsumerFactory<String, CustomerPortfolio> consumerFactory(){
-	    Map<String, Object> config = buildPropsConsumer();
-	    return new DefaultKafkaConsumerFactory<>(config, new StringDeserializer(), buildDeserializer());
+	public ConsumerFactory<String, String> consumerFactory() {
+		Map<String, Object> config = new HashMap<>();
+		config.put(ConsumerConfig.BOOTSTRAP_SERVERS_CONFIG, bootstrapAddress);
+		config.put(ConsumerConfig.GROUP_ID_CONFIG, groupId);
+		config.put(ConsumerConfig.KEY_DESERIALIZER_CLASS_CONFIG, StringDeserializer.class.getName());
+		config.put(ConsumerConfig.VALUE_DESERIALIZER_CLASS_CONFIG, StringDeserializer.class.getName());
+		return new DefaultKafkaConsumerFactory<>(config);		
 	}
 	
 	@Bean
-	public ConcurrentKafkaListenerContainerFactory<String, CustomerPortfolio> kafkaListenerContainerFactory(){
-		ConcurrentKafkaListenerContainerFactory<String, CustomerPortfolio> factory = new ConcurrentKafkaListenerContainerFactory<>();
-	    factory.setConsumerFactory(consumerFactory());
-	    factory.setBatchListener(true);
-	    return factory;
+	public ConcurrentKafkaListenerContainerFactory<String, String> concurrentKafkaListenerContainerFactory() {
+		ConcurrentKafkaListenerContainerFactory<String, String> factory =  new ConcurrentKafkaListenerContainerFactory<>();		
+		factory.setConsumerFactory(consumerFactory());
+		return factory;
 	}
 
-	private Map<String, Object> buildPropsConsumer() {
-		JsonDeserializer<CustomerPortfolio> deserializer = buildDeserializer();
-		Map<String, Object> props = new HashMap<>();
-		props.put(ConsumerConfig.BOOTSTRAP_SERVERS_CONFIG, bootstrapAddress);
-		props.put(ConsumerConfig.GROUP_ID_CONFIG, groupId);
-		props.put(ConsumerConfig.AUTO_OFFSET_RESET_CONFIG, "earliest");
-		props.put(ConsumerConfig.ENABLE_AUTO_COMMIT_CONFIG, false);
-		props.put(ConsumerConfig.KEY_DESERIALIZER_CLASS_CONFIG, StringDeserializer.class);
-		props.put(ConsumerConfig.VALUE_DESERIALIZER_CLASS_CONFIG, StringDeserializer.class);
-		props.put(ProducerConfig.VALUE_SERIALIZER_CLASS_CONFIG, JsonSerializer.class);
-		props.put(ConsumerConfig.VALUE_DESERIALIZER_CLASS_CONFIG, deserializer);
-		return props;
-	}
-	
-	private JsonDeserializer<CustomerPortfolio> buildDeserializer() {
-		JsonDeserializer<CustomerPortfolio> deserializer = new JsonDeserializer<>(CustomerPortfolio.class);
-		deserializer.setRemoveTypeHeaders(false);
-		deserializer.addTrustedPackages("*");
-		deserializer.setUseTypeMapperForKey(true);
-		return deserializer;
-	}
-	
 	@Bean
 	public ProducerFactory<String, CustomerPortfolio> customerPortfolioProducerFactory() {
 	    return new DefaultKafkaProducerFactory<>(buildPropsProducer());
