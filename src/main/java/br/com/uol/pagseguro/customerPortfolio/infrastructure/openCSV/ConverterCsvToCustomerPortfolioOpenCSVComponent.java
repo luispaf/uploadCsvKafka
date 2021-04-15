@@ -30,6 +30,7 @@ public class ConverterCsvToCustomerPortfolioOpenCSVComponent implements Converte
 					.withSkipLines(1)
 					.build()
 					.parse();
+			
 			log.info("[finish] ConverterCsvToCustomerPortfolioOpenCSVComponent - parse");
 			return customersPortfolioByCSV.stream()
 					.map(CustomerPortfolioLineCSV::buildCustomerPortFolio)

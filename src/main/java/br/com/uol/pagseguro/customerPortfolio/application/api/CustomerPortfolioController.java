@@ -16,6 +16,6 @@ public class CustomerPortfolioController implements CustomerPortfolioAPI {
 	public void postCustomersPortfolioByFile(MultipartFile file) {
 		log.info("[start] CustomerPortfolioController - postCustomersPortfolioByFile");
 		customerPortfolioService.saveCustomersPortfolioByFile(file);
-		log.info("[start] CustomerPortfolioController - postCustomersPortfolioByFile");
+		log.info("[finish] CustomerPortfolioController - postCustomersPortfolioByFile");
 	}
 }
