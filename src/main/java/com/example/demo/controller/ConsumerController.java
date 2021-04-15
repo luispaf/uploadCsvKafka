@@ -25,7 +25,7 @@ public class ConsumerController {
 	 @Autowired
 	 CSVService fileService;
 	
-	  @GetMapping("/get")
+	  @GetMapping()
 	  public ResponseEntity<?> gerarCsv() throws Exception{
 		  List<Carga>  listaCarga = cargaService.listar();
 		 

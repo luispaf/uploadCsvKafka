@@ -19,7 +19,7 @@ public class ProducerController {
 	  @Autowired
 	  CSVService fileService;
 	 
-	  @PostMapping("/send")
+	  @PostMapping()
 	  public ResponseEntity<?>  fileUpload(@RequestParam("arquivo") MultipartFile file) throws Exception{				
 		  MsgDTO msgRet = fileService.lerAquivoCSV(file);
 		  return new ResponseEntity<MsgDTO>(msgRet, HttpStatus.OK);
