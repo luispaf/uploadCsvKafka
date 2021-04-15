@@ -38,11 +38,13 @@ public class KafkaConfig {
 		configs.put(AdminClientConfig.BOOTSTRAP_SERVERS_CONFIG, bootstrapAddress);
 		return new KafkaAdmin(configs);
 	}
+	
 	@Bean
 	public ConsumerFactory<String, CustomerPortfolio> consumerFactory(){
 	    Map<String, Object> config = buildPropsConsumer();
 	    return new DefaultKafkaConsumerFactory<>(config, new StringDeserializer(), buildDeserializer());
 	}
+	
 	@Bean
 	public ConcurrentKafkaListenerContainerFactory<String, CustomerPortfolio> kafkaListenerContainerFactory(){
 		ConcurrentKafkaListenerContainerFactory<String, CustomerPortfolio> factory = new ConcurrentKafkaListenerContainerFactory<>();
@@ -64,6 +66,7 @@ public class KafkaConfig {
 		props.put(ConsumerConfig.VALUE_DESERIALIZER_CLASS_CONFIG, deserializer);
 		return props;
 	}
+	
 	private JsonDeserializer<CustomerPortfolio> buildDeserializer() {
 		JsonDeserializer<CustomerPortfolio> deserializer = new JsonDeserializer<>(CustomerPortfolio.class);
 		deserializer.setRemoveTypeHeaders(false);

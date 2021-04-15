@@ -1,5 +1,8 @@
 package br.com.uol.pagseguro.customerPortfolio.application.api;
 
+import org.springframework.http.HttpHeaders;
+import org.springframework.http.MediaType;
+import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.RestController;
 import org.springframework.web.multipart.MultipartFile;
 
@@ -17,5 +20,17 @@ public class CustomerPortfolioController implements CustomerPortfolioAPI {
 		log.info("[start] CustomerPortfolioController - postCustomersPortfolioByFile");
 		customerPortfolioService.saveCustomersPortfolioByFile(file);
 		log.info("[finish] CustomerPortfolioController - postCustomersPortfolioByFile");
+	}
+
+	@Override
+	public ResponseEntity<?> getCustomersPortfolio() throws Exception {
+		log.info("[start] CustomerPortfolioController - postCustomersPortfolioByFile");
+		CustomersPortfolioResponse response = customerPortfolioService.findCustomersPortfolioInCsvFile();
+		log.info("[start] CustomerPortfolioController - postCustomersPortfolioByFile");
+		return ResponseEntity
+				.ok()
+				.header(HttpHeaders.CONTENT_DISPOSITION, "attachment; filename=" + response.getFileName())
+				.contentType(MediaType.parseMediaType("application/csv"))
+				.body(response.getFile());
 	}
 }

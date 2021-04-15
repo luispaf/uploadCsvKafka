@@ -16,7 +16,7 @@ public class CustomerPortfolioSpringKafkaConsumer {
 
 	@KafkaListener(
 			topics = "${kafka.customerPortfolioTopic}", 
-	        groupId = "group_one",
+	        groupId = "${kafka.groupId}",
 	        containerFactory = "kafkaListenerContainerFactory",
 	        autoStartup = "true")
 	public void customerPortfolioListener(CustomerPortfolio customerPortfolio) {
