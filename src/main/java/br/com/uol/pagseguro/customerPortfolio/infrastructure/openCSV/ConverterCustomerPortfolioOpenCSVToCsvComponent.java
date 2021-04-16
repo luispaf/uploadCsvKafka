@@ -25,7 +25,7 @@ public class ConverterCustomerPortfolioOpenCSVToCsvComponent implements Converte
 		log.info("[start] ConverterCustomerPortfolioOpenCSVToCsvComponent - parseToCustomersPortfolio");
 		final CSVFormat format = CSVFormat.DEFAULT
 				.withQuoteMode(QuoteMode.MINIMAL)
-				.withRecordSeparator(';');
+				.withDelimiter(';');
 
 		try (ByteArrayOutputStream out = new ByteArrayOutputStream();
 		
