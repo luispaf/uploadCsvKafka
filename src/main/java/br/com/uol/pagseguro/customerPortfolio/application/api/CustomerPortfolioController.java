@@ -27,10 +27,11 @@ public class CustomerPortfolioController implements CustomerPortfolioAPI {
 		log.info("[start] CustomerPortfolioController - postCustomersPortfolioByFile");
 		CustomersPortfolioResponse response = customerPortfolioService.findCustomersPortfolioInCsvFile();
 		log.info("[start] CustomerPortfolioController - postCustomersPortfolioByFile");
-		return ResponseEntity
-				.ok()
-				.header(HttpHeaders.CONTENT_DISPOSITION, "attachment; filename=" + response.getFileName())
-				.contentType(MediaType.parseMediaType("application/csv"))
-				.body(response.getFile());
+		
+	    return ResponseEntity.ok() .header(HttpHeaders.CONTENT_DISPOSITION,
+			  "attachment; filename=" + response.getFileName())
+			  .contentType(MediaType.parseMediaType("application/csv")) .body(response.getFile());				  
+		  
+		  
 	}
 }

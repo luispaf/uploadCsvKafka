@@ -6,6 +6,8 @@ import java.util.Optional;
 import org.springframework.kafka.annotation.KafkaListener;
 import org.springframework.stereotype.Component;
 
+import com.google.gson.Gson;
+
 import br.com.uol.pagseguro.customerPortfolio.application.service.CustomerPortfolioService;
 import br.com.uol.pagseguro.customerPortfolio.domain.CustomerPortfolio;
 import lombok.AllArgsConstructor;
@@ -26,23 +28,25 @@ public class CustomerPortfolioSpringKafkaStringConsumer {
 	}
 	
 	public Optional<CustomerPortfolio> buildCustomerPortfolioByMessage(String message) {
-		String culunas[] = message.split(";");		
-		String status = culunas[4];
-		// se for cabeçalho ignora
-		if (("0".equals(status)) || ("1".equals(status))) {
-			return Optional.ofNullable(CustomerPortfolio.builder()
-			.businessUnit(removerAcentos(culunas[0]))
-			.name(removerAcentos(culunas[1]))
-			.segment(removerAcentos(culunas[2]))
-			.link(removerAcentos(culunas[3]))
-			.status(status)
-			.build());
+		Gson gson = new Gson();
+		CustomerPortfolio customerPortfolio = gson.fromJson(message, CustomerPortfolio.class);
+		validarCampo(customerPortfolio);
+		if (("0".equals(customerPortfolio.getStatus())) || ("1".equals(customerPortfolio.getStatus()))) {
+			return Optional.ofNullable(customerPortfolio);
 		} else {
 			return Optional.empty();
 		}
 	}
 	
-	public String removerAcentos(String valorAcentuado){
-		   return Normalizer.normalize(valorAcentuado, Normalizer.Form.NFD).replaceAll("[^\\p{ASCII}]", "");
+	public CustomerPortfolio validarCampo(CustomerPortfolio customerPortfolio) {
+		customerPortfolio.setBusinessUnit(removerCaracterEspecial(customerPortfolio.getBusinessUnit()));
+		customerPortfolio.setName(removerCaracterEspecial(customerPortfolio.getName()));
+		customerPortfolio.setSegment(removerCaracterEspecial(customerPortfolio.getSegment()));
+		customerPortfolio.setLink(removerCaracterEspecial(customerPortfolio.getLink()));
+		return customerPortfolio;
+	}
+	
+	public String removerCaracterEspecial(String valorAcentuado){
+		return Normalizer.normalize(valorAcentuado, Normalizer.Form.NFD).replaceAll("[^\\p{ASCII}]", "");
 	}
 }

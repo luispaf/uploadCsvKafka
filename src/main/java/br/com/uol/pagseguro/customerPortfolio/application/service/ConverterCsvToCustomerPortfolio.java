@@ -8,4 +8,5 @@ import br.com.uol.pagseguro.customerPortfolio.domain.CustomerPortfolio;
 
 public interface ConverterCsvToCustomerPortfolio {
 	List<CustomerPortfolio> parseToCustomersPortfolio(MultipartFile file);
+	void validaCampos(List<CustomerPortfolio> customersPortfolio);
 }

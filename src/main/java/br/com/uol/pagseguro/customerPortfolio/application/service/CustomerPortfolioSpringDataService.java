@@ -35,6 +35,9 @@ public class CustomerPortfolioSpringDataService implements CustomerPortfolioServ
 	public void saveCustomersPortfolioByFile(MultipartFile file) {
 		log.info("[start] CustomerPortfolioSpringDataService - saveCustomersPortfolioByFile");
 		List<CustomerPortfolio> customersPortfolio = converterCsvToCustomerPortfolio.parseToCustomersPortfolio(file);
+		log.info("[start] Valida campos");
+		converterCsvToCustomerPortfolio.validaCampos(customersPortfolio);
+		log.info("[finish] Valida campos");
 		customerPortfolioKafkaProducer.send(customersPortfolio);
 		log.info("[finish] CustomerPortfolioSpringDataService - saveCustomersPortfolioByFile");
 	}
@@ -45,6 +48,7 @@ public class CustomerPortfolioSpringDataService implements CustomerPortfolioServ
 		List<CustomerPortfolio> customersPortfolio = findCustomersPortfolio();
 		ByteArrayInputStream byteArray = converterCustomerPortfolioToCsv.parseToCustomersPortfolio(customersPortfolio);
 		log.info("[finish] CustomerPortfolioSpringDataService - findCustomersPortfolioInCsvFile");
+		
 		return CustomersPortfolioResponse.builder()
 				.fileName(FILE_NAME)
 				.file(new InputStreamResource(byteArray))
